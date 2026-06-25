@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Retention Curve Plotter | Toolsbunny</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #000; color: #fff; font-family: 'JetBrains Mono', monospace; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-lg mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-6">Retention Plotter</h1>
+        <div class="space-y-4 mb-8">
+            <input type="number" id="p1" placeholder="P1 %" class="w-full p-2 bg-black border border-zinc-700 rounded">
+            <input type="number" id="p2" placeholder="P2 %" class="w-full p-2 bg-black border border-zinc-700 rounded">
+            <input type="number" id="p3" placeholder="P3 %" class="w-full p-2 bg-black border border-zinc-700 rounded">
+            <input type="number" id="p4" placeholder="P4 %" class="w-full p-2 bg-black border border-zinc-700 rounded">
+        </div>
+        <div class="flex items-end gap-2 h-40 border-b border-zinc-800">
+            <div id="bar1" class="w-1/4 bg-indigo-600 transition-all"></div>
+            <div id="bar2" class="w-1/4 bg-indigo-600 transition-all"></div>
+            <div id="bar3" class="w-1/4 bg-indigo-600 transition-all"></div>
+            <div id="bar4" class="w-1/4 bg-indigo-600 transition-all"></div>
+        </div>
+    </main>
+    <script>
+        const inputs = [document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3'), document.getElementById('p4')];
+        const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3'), document.getElementById('bar4')];
+        function render() {
+            inputs.forEach((input, i) => {
+                let val = Math.min(Math.max(parseInt(input.value) || 0, 0), 100);
+                bars[i].style.height = `${val}%`;
+            });
+        }
+        inputs.forEach(el => el.addEventListener('input', render));
+    </script>
+</body>
+</html>

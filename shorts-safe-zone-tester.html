@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorts Safe Zone Tester | Toolsbunny</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #000; color: #fff; font-family: 'JetBrains Mono', monospace; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-md mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-4">Safe Zone Overlay</h1>
+        <input type="file" id="fileIn" class="mb-4 block w-full text-sm text-zinc-400">
+        <div id="viewContainer" class="relative hidden">
+            <img id="frameImg" class="w-full border border-zinc-700" alt="Preview">
+            <div class="absolute inset-0 border-[20px] border-red-500/50 pointer-events-none"></div>
+        </div>
+    </main>
+    <script>
+        const fileIn = document.getElementById('fileIn');
+        const frameImg = document.getElementById('frameImg');
+        const view = document.getElementById('viewContainer');
+        fileIn.addEventListener('change', (e) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                frameImg.src = ev.target.result;
+                view.classList.remove('hidden');
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
+</body>
+</html>

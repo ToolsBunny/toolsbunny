@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Character Counter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background: #000; color: #fff; font-family: sans-serif; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-2xl mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-4">Character Counter</h1>
+        <textarea id="textInput" class="w-full h-32 p-3 bg-black border border-zinc-800 rounded" placeholder="Type here..."></textarea>
+        <p id="count" class="mt-4 text-zinc-400">Characters: 0</p>
+    </main>
+    <script>
+        const textInput = document.getElementById('textInput');
+        textInput.addEventListener('input', () => {
+            document.getElementById('count').innerText = `Characters: ${textInput.value.length}`;
+        });
+    </script>
+</body>
+</html>

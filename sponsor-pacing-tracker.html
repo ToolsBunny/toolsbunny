@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Pacing Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background: #000; color: #fff; font-family: sans-serif; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-xl mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-4">Sponsor Pacing</h1>
+        <input type="number" id="total" placeholder="Total Duration (sec)" class="w-full p-3 bg-black border border-zinc-800 rounded mb-2">
+        <input type="number" id="sponsor" placeholder="Sponsor Duration (sec)" class="w-full p-3 bg-black border border-zinc-800 rounded mb-4">
+        <p id="result" class="text-teal-400 font-bold">Pacing: 0%</p>
+    </main>
+    <script>
+        const update = () => {
+            const t = parseFloat(document.getElementById('total').value) || 1;
+            const s = parseFloat(document.getElementById('sponsor').value) || 0;
+            document.getElementById('result').innerText = `Pacing: ${((s / t) * 100).toFixed(1)}%`;
+        };
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', update));
+    </script>
+</body>
+</html>

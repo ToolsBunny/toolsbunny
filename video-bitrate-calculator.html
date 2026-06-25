@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitrate Calculator | Toolsbunny</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background: #000; color: #fff; font-family: sans-serif; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-xl mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-4">Bitrate Calculator</h1>
+        <input type="number" id="dur" placeholder="Duration (sec)" class="w-full p-3 bg-black border border-zinc-800 rounded mb-2">
+        <input type="number" id="bit" placeholder="Bitrate (Mbps)" class="w-full p-3 bg-black border border-zinc-800 rounded mb-6">
+        <div class="p-4 bg-black border border-zinc-800 rounded"><p id="res" class="text-teal-400 font-bold">Size: 0 MB</p></div>
+    </main>
+    <script>
+        const calc = () => {
+            const d = parseFloat(document.getElementById('dur').value) || 0;
+            const b = parseFloat(document.getElementById('bit').value) || 0;
+            document.getElementById('res').innerText = `Size: ${( (b * d) / 8 ).toFixed(2)} MB`;
+        };
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
+    </script>
+</body>
+</html>

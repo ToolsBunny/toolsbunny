@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Read-Time Calculator | Toolsbunny</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #000; color: #fff; font-family: 'JetBrains Mono', monospace; }</style>
+</head>
+<body class="p-10">
+    <main class="max-w-2xl mx-auto bg-[#16161A] p-8 rounded border border-zinc-800">
+        <h1 class="text-2xl font-bold mb-4">Script Read-Time</h1>
+        <textarea id="scriptText" class="w-full h-40 p-3 bg-black border border-zinc-700 rounded mb-4" placeholder="Paste script here..."></textarea>
+        <div class="p-4 bg-black border border-zinc-700 rounded text-center">
+            <span id="runtimeOutput" class="text-3xl text-teal-400 font-bold">00:00</span>
+        </div>
+    </main>
+    <script>
+        const text = document.getElementById('scriptText');
+        const out = document.getElementById('runtimeOutput');
+        text.addEventListener('input', () => {
+            const words = text.value.trim().split(/\s+/).filter(Boolean).length;
+            const seconds = Math.ceil((words / 150) * 60);
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            out.innerText = `${m}:${s}`;
+        });
+    </script>
+</body>
+</html>
