@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Playground & Interactive String Explainer | ToolsBunny</title>
+  <meta name="description" content="Test complex search expressions against text strings. Provides real-time visual syntax layout explanations entirely client-side.">
+  <meta property="og:title" content="Regex Playground & Interactive String Explainer | ToolsBunny">
+  <meta property="og:description" content="Audit search strings safely. Live validation metrics engine operating without cloud transmission protocols.">
+  <meta property="og:url" content="https://toolsbunny.com/regex-tester">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-regex-tester.png">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tb-vault-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .tb-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .tb-btn-share { background: none; border: none; color: #A1A1AA; font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.2s ease; text-transform: uppercase; tracking: 0.05em; }
+    .tb-btn-share:hover { color: #FFFFFF; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl tb-vault-card p-6">
+    <div class="flex items-center justify-between border-b border-[#2A2A35] pb-4">
+      <div>
+        <h1 class="text-xl tracking-tight text-white uppercase">🧩 REGEX_PLAYGROUND_EXPLAINER</h1>
+        <p class="text-xs text-gray-500 mt-1">Evaluate complex matching expressions against test scopes locally inside your sandbox workspace.</p>
+      </div>
+    </div>
+
+    <div id="bunny-ad-slot">
+      <span class="text-[10px] text-gray-600 uppercase tracking-widest">Advertisement Space</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Regular Expression Pattern String</label>
+        <input type="text" id="regexExpressionIn" value="[a-z0-9]+@[a-z]+\.[a-z]{2,3}" class="w-full bg-[#080808] border border-[#2A2A35] rounded-[6px] p-2.5 text-xs text-white focus:outline-none focus:border-[#635BFF] font-mono tracking-wide">
+      </div>
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Target Evaluation Sandbox Text</label>
+        <input type="text" id="regexTargetScopeText" value="contact telemetry active at dev@domain.com workspace node." class="w-full bg-[#080808] border border-[#2A2A35] rounded-[6px] p-2.5 text-xs text-white focus:outline-none focus:border-[#635BFF] font-mono">
+      </div>
+    </div>
+
+    <button id="runRegexTesterBtn" class="w-full bg-[#635BFF] hover:bg-[#635BFF]/90 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-[6px] transition-all cursor-pointer mb-4">Execute Matrix Evaluation Match</button>
+
+    <div class="bg-[#080808] border border-[#2A2A35] p-3 rounded-[6px]">
+      <span class="text-[10px] text-gray-500 uppercase block mb-1">Interactive Match Matrix Array Result</span>
+      <p id="regexMatchLogsOutput" class="text-xs text-[#00FFC2] font-mono tracking-wide">Awaiting expression computation event...</p>
+    </div>
+
+    <div class="tb-share-row">
+      <button class="tb-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="tb-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const regexExpressionIn = document.getElementById('regexExpressionIn');
+      const regexTargetScopeText = document.getElementById('regexTargetScopeText');
+      const runRegexTesterBtn = document.getElementById('runRegexTesterBtn');
+      const regexMatchLogsOutput = document.getElementById('regexMatchLogsOutput');
+      const bookmarkBtn = document.getElementById('bookmarkBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+
+      runRegexTesterBtn.addEventListener('click', () => {
+        const expressionPatternStr = regexExpressionIn.value;
+        const targetSearchStr = regexTargetScopeText.value;
+        if(!expressionPatternStr || !targetSearchStr) return;
+
+        try {
+          const compiledRegex = new RegExp(expressionPatternStr, 'gi');
+          const outputCaptureMatches = targetSearchStr.match(compiledRegex);
+          
+          if(outputCaptureMatches) {
+            regexMatchLogsOutput.textContent = `✦ EXEC_MATCHES_FOUND: [ ${outputCaptureMatches.join(' , ')} ]`;
+            regexMatchLogsOutput.className = "text-xs font-bold font-mono text-[#00FFC2]";
+          } else {
+            regexMatchLogsOutput.textContent = "✦ SIMULATION_COMPLETED: 0 BLOCKS MATCHED EXPRESSION STRUCTURE.";
+            regexMatchLogsOutput.className = "text-xs font-bold font-mono text-amber-500";
+          }
+        } catch(err) {
+          regexMatchLogsOutput.textContent = "✦ RUNTIME_EXCEPTION: ILLEGAL EXPRESSION TREE PARAMETERS";
+          regexMatchLogsOutput.className = "text-xs font-bold font-mono text-red-500";
+        }
+      });
+
+      bookmarkBtn.addEventListener('click', () => {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark ToolsBunny to your toolbar panel!`);
+      });
+
+      shareXBtn.addEventListener('click', () => {
+        const text = encodeURIComponent("Debug pattern string algorithms without passing application data properties to external analytics logs.");
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

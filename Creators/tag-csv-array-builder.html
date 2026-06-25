@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag CSV Processing Matrix Array Builder - Toolsbunny</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 750px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; }
+        .bunny-textarea { width: 100%; height: 120px; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: none; outline: none; margin-bottom: 16px; }
+        .bunny-textarea:focus { border-color: #635BFF; }
+        
+        .bunny-tag-container { display: flex; flex-wrap: wrap; gap: 8px; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; padding: 14px; min-height: 100px; }
+        .bunny-tag-node { background: #16161A; border: 1px solid #635BFF; color: #00FFC2; font-size: 0.8rem; padding: 4px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Tag CSV Array Builder</h1>
+        <p class="bunny-subtitle">Convert newline or comma-separated token values into decoupled metadata containers.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <label class="bunny-label" for="tagInput">Raw Keyword Data Inputs</label>
+        <textarea id="tagInput" class="bunny-textarea" placeholder="finance, budgeting, cash compass, wealth, strategy optimization"></textarea>
+
+        <label class="bunny-label">Parsed Array Tokens</label>
+        <div class="bunny-tag-container" id="tagWrapper">
+            <span style="color: #8E8E9F; font-size: 0.85rem;">Token node structures will map down here dynamically...</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tagInput = document.getElementById('tagInput');
+            const tagWrapper = document.getElementById('tagWrapper');
+
+            tagInput.addEventListener('input', () => {
+                const raw = tagInput.value;
+                tagWrapper.innerHTML = '';
+
+                if(!raw.trim()) {
+                    tagWrapper.innerHTML = '<span style="color: #8E8E9F; font-size: 0.85rem;">Token node structures will map down here dynamically...</span>';
+                    return;
+                }
+
+                const nodes = raw.split(/,|\n/).map(t => t.trim()).filter(Boolean);
+                nodes.forEach(node => {
+                    const span = document.createElement('span');
+                    span.className = 'bunny-tag-node';
+                    span.innerText = node;
+                    tagWrapper.appendChild(span);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Script Read-Time Calculator - Free Pacing Tool</title>
+    <meta name="description" content="Calculate the estimated video runtime of your scripts instantly. Adjust for multiple speaking speeds to target perfect timing for Shorts, Reels, and Long-form video.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 750px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bunny-textarea { width: 100%; height: 180px; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: none; outline: none; transition: border-color 0.2s; margin-bottom: 20px; }
+        .bunny-textarea:focus { border-color: #635BFF; }
+        
+        .bunny-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .bunny-select, .bunny-input-number { width: 100%; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 12px; font-family: 'JetBrains Mono', monospace; outline: none; }
+        .bunny-select:focus, .bunny-input-number:focus { border-color: #635BFF; }
+        
+        .bunny-results-panel { background-color: #080808; border-radius: 6px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border: 1px solid #2A2A35; }
+        .bunny-metric { display: flex; flex-direction: column; }
+        .bunny-metric-label { font-size: 0.75rem; text-transform: uppercase; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; }
+        .bunny-metric-value { font-size: 2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #00FFC2; margin-top: 4px; }
+        
+        .bunny-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a35; }
+        .bunny-btn-share { background: none; border: none; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+        .bunny-btn-share:hover { color: #FFFFFF; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Script Read-Time Calculator</h1>
+        <p class="bunny-subtitle">Instantly map written content logs down to absolute execution timeline runtimes.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <label class="bunny-label" for="scriptText">Production Copy Blocks</label>
+        <textarea id="scriptText" class="bunny-textarea" placeholder="Paste structural script paragraphs or draft layout lines here..."></textarea>
+        
+        <div class="bunny-control-grid">
+            <div>
+                <label class="bunny-label" for="paceProfile">Pace Profile</label>
+                <select id="paceProfile" class="bunny-select">
+                    <option value="130">Slow / Explainer (130 WPM)</option>
+                    <option value="150" selected>Casual / Vlog (150 WPM)</option>
+                    <option value="180">Fast / Rapid Short (180 WPM)</option>
+                    <option value="custom">Custom Configuration</option>
+                </select>
+            </div>
+            <div>
+                <label class="bunny-label" for="customWpm">Target Custom WPM</label>
+                <input type="number" id="customWpm" class="bunny-input-number" value="160" disabled>
+            </div>
+        </div>
+
+        <div class="bunny-results-panel">
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Calculated Duration</span>
+                <span class="bunny-metric-value" id="runtimeOutput">00:00</span>
+            </div>
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Gross Words Detected</span>
+                <span class="bunny-metric-value" id="wordCountOutput" style="color: #FFFFFF;">0</span>
+            </div>
+        </div>
+
+        <div class="bunny-share-row">
+            <button class="bunny-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+            <button class="bunny-btn-share" id="shareXBtn">𝕏 Share on X</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scriptText = document.getElementById('scriptText');
+            const paceProfile = document.getElementById('paceProfile');
+            const customWpm = document.getElementById('customWpm');
+            const runtimeOutput = document.getElementById('runtimeOutput');
+            const wordCountOutput = document.getElementById('wordCountOutput');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const shareXBtn = document.getElementById('shareXBtn');
+
+            function runCalculation() {
+                const raw = scriptText.value.trim();
+                const words = raw === "" ? 0 : raw.split(/\s+/).filter(Boolean).length;
+                wordCountOutput.innerText = words;
+
+                let wpm = parseInt(paceProfile.value);
+                if(paceProfile.value === 'custom') {
+                    customWpm.disabled = false;
+                    wpm = parseInt(customWpm.value) || 150;
+                } else {
+                    customWpm.disabled = true;
+                }
+
+                const totalSeconds = Math.ceil((words / wpm) * 60);
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+                const s = (totalSeconds % 60).toString().padStart(2, '0');
+                runtimeOutput.innerText = `${m}:${s}`;
+            }
+
+            scriptText.addEventListener('input', runCalculation);
+            paceProfile.addEventListener('change', runCalculation);
+            customWpm.addEventListener('input', runCalculation);
+
+            bookmarkBtn.addEventListener('click', () => {
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark Toolsbunny to your toolbar panel!`);
+            });
+
+            shareXBtn.addEventListener('click', () => {
+                const tweetText = encodeURIComponent("Perfected my video pacing instantly using this secure Script Read-Time Calculator on Toolsbunny. Try it for free:");
+                const shareUrl = encodeURIComponent("https://toolsbunny.com/script-calculator");
+                window.open(`https://twitter.com/intent/tweet?text=${tweetText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
+            });
+            
+            runCalculation();
+        });
+    </script>
+</body>
+</html>

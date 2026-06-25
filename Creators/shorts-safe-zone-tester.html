@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorts & Reels Safe Zone Diagnostic Sandbox - Toolsbunny</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 500px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 20px; }
+        
+        #bunny-ad-slot { margin: 15px 0; min-height: 80px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 80px; }
+        
+        .bunny-upload-btn { display: block; width: 100%; padding: 12px; background: #635BFF; border: none; color: white; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; text-align: center; margin-bottom: 20px; }
+        #fileIn { display: none; }
+        
+        .bunny-viewport-container { position: relative; width: 100%; aspect-ratio: 9/16; background-color: #000; border-radius: 6px; overflow: hidden; border: 1px solid #2A2A35; display: none; }
+        .bunny-preview-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top:0; left:0; }
+        
+        .bunny-overlay-mask { position: absolute; inset: 0; pointer-events: none; }
+        .bunny-top-danger { position: absolute; top: 0; left: 0; width: 100%; height: 12%; background: rgba(255, 59, 48, 0.3); border-bottom: 2px dashed #FF3B30; }
+        .bunny-bottom-danger { position: absolute; bottom: 0; left: 0; width: 100%; height: 22%; background: rgba(255, 59, 48, 0.3); border-top: 2px dashed #FF3B30; }
+        .bunny-right-danger { position: absolute; right: 0; bottom: 22%; width: 18%; height: 50%; background: rgba(255, 59, 48, 0.3); border-left: 2px dashed #FF3B30; }
+        
+        .bunny-legend { margin-top: 16px; background: #080808; padding: 12px; border-radius: 4px; border: 1px solid #2A2A35; font-size: 0.75rem; color: #8E8E9F; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Shorts UI Safe Zone</h1>
+        <p class="bunny-subtitle">Audit interface occlusion zones before finalizing timeline output logs.</p>
+        
+        <button class="bunny-upload-btn" id="uploadBtn">Load Frame Layout</button>
+        <input type="file" id="fileIn" accept="image/*">
+        
+        <div id="bunny-ad-slot">■ METADATA COMMERCIAL PLACEMENT</div>
+
+        <div class="bunny-viewport-container" id="viewContainer">
+            <img id="frameImg" class="bunny-preview-img" alt="Frame preview">
+            <div class="bunny-overlay-mask">
+                <div class="bunny-top-danger"></div>
+                <div class="bunny-right-danger"></div>
+                <div class="bunny-bottom-danger"></div>
+            </div>
+        </div>
+
+        <div class="bunny-legend">
+            ⚠️ Red blocks mirror platform engagement icon layers, profile titles, and UI system navigation sweeps. Keep essential text tracking out of these spaces.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadBtn = document.getElementById('uploadBtn');
+            const fileIn = document.getElementById('fileIn');
+            const frameImg = document.getElementById('frameImg');
+            const viewContainer = document.getElementById('viewContainer');
+
+            uploadBtn.addEventListener('click', () => fileIn.click());
+
+            fileIn.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        frameImg.src = e.target.result;
+                        viewContainer.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

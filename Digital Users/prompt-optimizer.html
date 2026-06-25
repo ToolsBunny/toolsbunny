@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free AI Prompt Optimizer & Token Shrinker | ToolsBunny</title>
+  <meta name="description" content="Optimize LLM prompts instantly. Strip filler words and re-engineer raw prompts into structured Role-Task-Context frameworks to reduce API token costs.">
+  <meta property="og:title" content="Free AI Prompt Optimizer & Token Shrinker | ToolsBunny">
+  <meta property="og:description" content="Strip filler words and compress your AI prompts into high-performance, cost-effective instructions instantly.">
+  <meta property="og:url" content="https://toolsbunny.com/prompt-optimizer">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-prompt-optimizer.png">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tb-vault-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .tb-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .tb-btn-share { background: none; border: none; color: #A1A1AA; font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.2s ease; text-transform: uppercase; tracking: 0.05em; }
+    .tb-btn-share:hover { color: #FFFFFF; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl tb-vault-card p-6">
+    <div class="flex items-center justify-between border-b border-[#2A2A35] pb-4">
+      <div>
+        <h1 class="text-xl tracking-tight text-white uppercase">⚡ PROMPT_OPTIMIZER_SHRINKER</h1>
+        <p class="text-xs text-gray-500 mt-1">Strip token structural bloat and refactor parameters into high-density context matrices.</p>
+      </div>
+    </div>
+
+    <div id="bunny-ad-slot">
+      <span class="text-[10px] text-gray-600 uppercase tracking-widest">Advertisement Space</span>
+    </div>
+
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Raw Structural Input Stream</label>
+        <textarea id="rawPromptInput" placeholder="Paste loose, unoptimized conversational text strings here..." class="w-full h-32 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-white focus:outline-none focus:border-[#635BFF] resize-none font-mono"></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Target System Role</label>
+          <input type="text" id="systemRole" value="Expert Engineer" class="w-full bg-[#080808] border border-[#2A2A35] rounded-[6px] p-2.5 text-xs text-white focus:outline-none focus:border-[#635BFF]">
+        </div>
+        <div>
+          <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Output Constraints</label>
+          <input type="text" id="outputConstraints" value="Concise, markdown syntax, no filler text" class="w-full bg-[#080808] border border-[#2A2A35] rounded-[6px] p-2.5 text-xs text-white focus:outline-none focus:border-[#635BFF]">
+        </div>
+      </div>
+
+      <button id="optimizeEngineBtn" class="w-full bg-[#635BFF] hover:bg-[#635BFF]/90 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-[6px] transition-all cursor-pointer">Compress & Re-Engineer Token Matrix</button>
+
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Optimized Execution Matrix</label>
+        <textarea id="optimizedOutput" readonly placeholder="High-density context array will render here..." class="w-full h-36 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-[#00FFC2] focus:outline-none resize-none font-mono"></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-[#080808] border border-[#2A2A35] p-3 rounded-[6px]">
+      <span class="text-[10px] text-gray-500 uppercase" id="compressionMetrics">Token Metrics: Matrix Idle</span>
+      <button id="copyMatrixBtn" class="text-xs font-bold uppercase bg-[#00FFC2] hover:bg-[#00FFC2]/90 text-black px-4 py-2 rounded-[6px] transition-all cursor-pointer">Copy Payload</button>
+    </div>
+
+    <div class="tb-share-row">
+      <button class="tb-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="tb-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rawPromptInput = document.getElementById('rawPromptInput');
+      const systemRole = document.getElementById('systemRole');
+      const outputConstraints = document.getElementById('outputConstraints');
+      const optimizeEngineBtn = document.getElementById('optimizeEngineBtn');
+      const optimizedOutput = document.getElementById('optimizedOutput');
+      const compressionMetrics = document.getElementById('compressionMetrics');
+      const copyMatrixBtn = document.getElementById('copyMatrixBtn');
+      const bookmarkBtn = document.getElementById('bookmarkBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+
+      optimizeEngineBtn.addEventListener('click', () => {
+        const inputStr = rawPromptInput.value.trim();
+        if(!inputStr) return;
+
+        // Functional algorithmic structural compression mechanics
+        const structuralFillerWords = /\b(please|kindly|could\s+you|i\s+want\s+you\s+to|help\s+me|just|actually|basically|essentially|as\s+follows|the\s+following|make\s+sure\s+to)\b/gi;
+        let pruned = inputStr.replace(structuralFillerWords, '');
+        pruned = pruned.replace(/\s+/g, ' ').trim();
+
+        const optimizedPayload = `[ROLE]: ${systemRole.value.trim()}\n[CONTEXT]: ${pruned}\n[CONSTRAINTS]: ${outputConstraints.value.trim()}`;
+        
+        optimizedOutput.value = optimizedPayload;
+        
+        const rawLength = inputStr.length;
+        const optLength = optimizedPayload.length;
+        const structuralSavings = Math.max(0, ((rawLength - optLength) / rawLength * 100)).toFixed(1);
+
+        compressionMetrics.textContent = `COMPRESSION COMPLETED // CHARACTER LENGTH DELTA: -${rawLength - optLength} (${structuralSavings}% WEIGHT REDUCTION)`;
+        compressionMetrics.className = "text-[10px] font-bold uppercase text-[#00FFC2]";
+      });
+
+      copyMatrixBtn.addEventListener('click', () => {
+        if(!optimizedOutput.value) return;
+        navigator.clipboard.writeText(optimizedOutput.value);
+        const originalText = copyMatrixBtn.textContent;
+        copyMatrixBtn.textContent = "COPIED TO MEMORY";
+        setTimeout(() => copyMatrixBtn.textContent = originalText, 1500);
+      });
+
+      bookmarkBtn.addEventListener('click', () => {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark ToolsBunny to your toolbar panel!`);
+      });
+
+      shareXBtn.addEventListener('click', () => {
+        const text = encodeURIComponent("Slash cloud API cost vectors instantly with this client-side local token optimizer engine. Production-tier output schemas!");
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

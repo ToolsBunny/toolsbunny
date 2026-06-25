@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart SVG Optimizer & React Code Injector | ToolsBunny</title>
+  <meta name="description" content="Clean vector files exported from Figma or Illustrator. Scrub metadata, transform into responsive code, and convert directly to clean inline React JSX.">
+  <meta property="og:title" content="Smart SVG Optimizer & React Code Injector | ToolsBunny">
+  <meta property="og:description" content="Optimize SVGs and transform vectors into production-ready JSX components inside your local machine viewport instantly.">
+  <meta property="og:url" content="https://toolsbunny.com/svg-optimizer">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-svg-optimizer.png">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tb-vault-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .tb-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .tb-btn-share { background: none; border: none; color: #A1A1AA; font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.2s ease; text-transform: uppercase; tracking: 0.05em; }
+    .tb-btn-share:hover { color: #FFFFFF; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl tb-vault-card p-6">
+    <div class="flex items-center justify-between border-b border-[#2A2A35] pb-4">
+      <div>
+        <h1 class="text-xl tracking-tight text-white uppercase">🖼️ SVG_OPTIMIZER_INJECTOR</h1>
+        <p class="text-xs text-gray-500 mt-1">Strip editor metadata junk arrays from Figma vectors and output production JSX elements.</p>
+      </div>
+    </div>
+
+    <div id="bunny-ad-slot">
+      <span class="text-[10px] text-gray-600 uppercase tracking-widest">Advertisement Space</span>
+    </div>
+
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Raw Structural Input Element Node Vector</label>
+        <textarea id="svgRawInput" placeholder="Paste structural raw <svg> layout strings directly here..." class="w-full h-32 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-white focus:outline-none focus:border-[#635BFF] resize-none font-mono"></textarea>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <label class="flex items-center space-x-2"><input type="radio" name="outputTargetType" id="targetCleanSvg" checked class="accent-[#635BFF]"> <span>Optimize Standard XML</span></label>
+        <label class="flex items-center space-x-2"><input type="radio" name="outputTargetType" id="targetReactComponent" class="accent-[#635BFF]"> <span>Convert to React JSX Component</span></label>
+      </div>
+
+      <button id="optimizeSvgBtn" class="w-full bg-[#635BFF] hover:bg-[#635BFF]/90 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-[6px] transition-all cursor-pointer">Optimize Vector Node File</button>
+
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Optimized Graphic Blueprint Render Output</label>
+        <textarea id="svgOptimizedOutput" readonly placeholder="Optimized assets array display output stream visualization area..." class="w-full h-36 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-[#00FFC2] focus:outline-none resize-none font-mono"></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-[#080808] border border-[#2A2A35] p-3 rounded-[6px]">
+      <span class="text-[10px] text-gray-500 uppercase" id="svgLogMetrics">Asset Node Optimizations Metrics: Inactive</span>
+      <button id="copySvgOutput" class="text-xs font-bold uppercase bg-[#00FFC2] hover:bg-[#00FFC2]/90 text-black px-4 py-2 rounded-[6px] transition-all cursor-pointer">Copy String Array</button>
+    </div>
+
+    <div class="tb-share-row">
+      <button class="tb-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="tb-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const svgRawInput = document.getElementById('svgRawInput');
+      const targetCleanSvg = document.getElementById('targetCleanSvg');
+      const optimizeSvgBtn = document.getElementById('optimizeSvgBtn');
+      const svgOptimizedOutput = document.getElementById('svgOptimizedOutput');
+      const svgLogMetrics = document.getElementById('svgLogMetrics');
+      const copySvgOutput = document.getElementById('copySvgOutput');
+      const bookmarkBtn = document.getElementById('bookmarkBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+
+      optimizeSvgBtn.addEventListener('click', () => {
+        let svgValue = svgRawInput.value.trim();
+        if(!svgValue) return;
+
+        // Strip typical editor junk, metadata comments, XML processing tags
+        svgValue = svgValue.replace(//g, '');
+        svgValue = svgValue.replace(/<\?xml[\s\S]*?\?>/i, '');
+        svgValue = svgValue.replace(/(xmlns:i|i:extractor|sketch:type|xmlns:sketch|xmlns:graph)="[^"]*"/gi, '');
+
+        if (targetCleanSvg.checked) {
+          svgOptimizedOutput.value = svgValue;
+          svgLogMetrics.textContent = "METRICS: XML VECTOR DATA PRUNED & MINIFIED";
+        } else {
+          // Convert properties into CamelCase notation for clean React consumption arrays
+          let componentCode = svgValue.replace(/(stroke-width|stroke-linecap|stroke-linejoin|fill-rule|clip-rule|stop-color|stop-opacity|font-family|font-size)/g, (match) => {
+            return match.split('-').map((w, idx) => idx === 0 ? w : w.charAt(0).toUpperCase() + w.slice(1)).join('');
+          });
+          componentCode = `import React from 'react';\n\nexport const VectorAsset = (props) => (\n  ${componentCode.split('\n').join('\n  ')}\n);`;
+          svgOptimizedOutput.value = componentCode;
+          svgLogMetrics.textContent = "METRICS: PRODUCTION READY REACT COMPONENT WRITTEN";
+        }
+        svgLogMetrics.className = "text-[10px] font-bold uppercase text-[#00FFC2]";
+      });
+
+      copySvgOutput.addEventListener('click', () => {
+        if(!svgOptimizedOutput.value) return;
+        navigator.clipboard.writeText(svgOptimizedOutput.value);
+        const originalText = copySvgOutput.textContent;
+        copySvgOutput.textContent = "COPIED TO MEMORY";
+        setTimeout(() => copySvgOutput.textContent = originalText, 1500);
+      });
+
+      bookmarkBtn.addEventListener('click', () => {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark ToolsBunny to your toolbar panel!`);
+      });
+
+      shareXBtn.addEventListener('click', () => {
+        const text = encodeURIComponent("Figma SVG assets output bloated layout garbage. Sanitize code configurations with this isolated workspace utility.");
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

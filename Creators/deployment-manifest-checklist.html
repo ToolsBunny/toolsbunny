@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Platform Deployment Checklist Matrix - Toolsbunny</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 700px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-check-row { display: flex; align-items: center; gap: 12px; background-color: #080808; border: 1px solid #2A2A35; padding: 14px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.2s; }
+        .bunny-check-row:hover { border-color: #635BFF; }
+        .bunny-checkbox { width: 18px; height: 18px; accent-color: #00FFC2; cursor: pointer; }
+        .bunny-check-text { font-size: 0.9rem; color: #FFF; font-family: 'Space Grotesk', sans-serif; }
+        
+        .bunny-progress-panel { margin-top: 20px; background: #080808; border: 1px solid #2A2A35; padding: 16px; border-radius: 6px; text-align: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #00FFC2; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Deployment Manifest Array</h1>
+        <p class="bunny-subtitle">Audit validation metrics prior to asset launch initialization routines.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <div id="checklistGroup">
+            <label class="bunny-check-row">
+                <input type="checkbox" class="bunny-checkbox">
+                <span class="bunny-check-text">Validate safe-zone bounds across layout previews</span>
+            </label>
+            <label class="bunny-check-row">
+                <input type="checkbox" class="bunny-checkbox">
+                <span class="bunny-check-text">Sanitize subtitle token loops and timestamps</span>
+            </label>
+            <label class="bunny-check-row">
+                <input type="checkbox" class="bunny-checkbox">
+                <span class="bunny-check-text">Verify cross-platform post character strings</span>
+            </label>
+            <label class="bunny-check-row">
+                <input type="checkbox" class="bunny-checkbox">
+                <span class="bunny-check-text">Confirm final canvas resolution aspect ratios</span>
+            </label>
+        </div>
+
+        <div class="bunny-progress-panel" id="progressIndicator">
+            LAUNCH READY STATUS: 0 / 4 SEGMENTS VALIDATED
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boxes = document.querySelectorAll('.bunny-checkbox');
+            const indicator = document.getElementById('progressIndicator');
+
+            function updateProgress() {
+                const checkedCount = Array.from(boxes).filter(b => b.checked).length;
+                indicator.innerText = `LAUNCH READY STATUS: ${checkedCount} / ${boxes.length} SEGMENTS VALIDATED`;
+                
+                if(checkedCount === boxes.length) {
+                    indicator.style.color = '#00FFC2';
+                    indicator.style.borderColor = '#00FFC2';
+                } else {
+                    indicator.style.color = '#635BFF';
+                    indicator.style.borderColor = '#2A2A35';
+                }
+            }
+
+            boxes.forEach(box => box.addEventListener('change', updateProgress));
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

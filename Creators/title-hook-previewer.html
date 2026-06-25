@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Title & Hook Previewer - Free Click-Through Optimization Tool</title>
+    <meta name="description" content="Optimize your video click-through rates. Preview how your video titles and hooks render across YouTube Mobile, Desktop, and Instagram Reels feeds before publishing.">
+    
+    <meta property="og:title" content="YouTube Title & Hook Previewer - Optimize CTR Instantly">
+    <meta property="og:description" content="Free, secure, client-side title rendering and character optimization tool engineered for digital video professionals.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolsbunny.com/title-previewer">
+    <meta property="og:image" content="https://toolsbunny.com/assets/og-title-previewer.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 800px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bunny-input-container { position: relative; margin-bottom: 24px; }
+        .bunny-input-text { width: 100%; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 14px; padding-right: 80px; font-family: 'JetBrains Mono', monospace; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .bunny-input-text:focus { border-color: #635BFF; }
+        
+        .bunny-counter-badge { position: absolute; right: 14px; top: 14px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: #00FFC2; }
+        .bunny-counter-badge.warn { color: #FF3B30; }
+        
+        .bunny-preview-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media(min-width: 600px) { .bunny-preview-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .bunny-preview-box { background: #080808; border: 1px solid #2A2A35; border-radius: 6px; padding: 16px; }
+        .bunny-preview-box.full-width { grid-column: 1 / -1; }
+        .bunny-preview-box .bunny-label { color: #8E8E9F; font-size: 0.75rem; margin-bottom: 12px; }
+        
+        .bunny-yt-desktop { display: flex; gap: 12px; }
+        .bunny-yt-thumb { width: 120px; aspect-ratio: 16/9; background-color: #16161A; border-radius: 4px; flex-shrink: 0; }
+        .bunny-yt-title-text { font-family: sans-serif; font-size: 14px; font-weight: 500; color: #FFF; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+        .bunny-yt-mobile { font-family: sans-serif; font-size: 14px; color: #FFF; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+        .bunny-ig-reels { background-color: #000; aspect-ratio: 9/16; max-width: 180px; margin: 0 auto; position: relative; border-radius: 4px; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; }
+        .bunny-ig-text { font-family: sans-serif; font-size: 12px; color: #FFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+        
+        .bunny-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a35; }
+        .bunny-btn-share { background: none; border: none; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+        .bunny-btn-share:hover { color: #FFFFFF; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Title & Hook Previewer</h1>
+        <p class="bunny-subtitle">Simulate real-world clipping architecture across social distribution points to preserve click metrics.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <div class="bunny-input-container">
+            <label class="bunny-label" for="titleIn">Proposed Hook String</label>
+            <input type="text" id="titleIn" class="bunny-input-text" value="This Is How You Safe-Proof Video Optimization Layouts Every Single Time">
+            <span class="bunny-counter-badge" id="counter">0/50</span>
+        </div>
+
+        <div class="bunny-preview-grid">
+            <div class="bunny-preview-box full-width">
+                <label class="bunny-label">YouTube Desktop Feed Environment</label>
+                <div class="bunny-yt-desktop">
+                    <div class="bunny-yt-thumb"></div>
+                    <div>
+                        <div class="bunny-yt-title-text" id="ytDeskText"></div>
+                        <span style="font-family:sans-serif; font-size:12px; color:#AAA; margin-top:4px; display:block;">Cash Compass &bull; 0 views</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bunny-preview-box">
+                <label class="bunny-label">YouTube Mobile Viewport</label>
+                <div class="bunny-yt-mobile" id="ytMobText"></div>
+                <span style="font-family:sans-serif; font-size:12px; color:#AAA; margin-top:2px; display:block;">Cash Compass &bull; 1.2M views</span>
+            </div>
+            <div class="bunny-preview-box" style="text-align: center;">
+                <label class="bunny-label">Instagram Reels Overlay</label>
+                <div class="bunny-ig-reels">
+                    <div class="bunny-ig-text" id="igText"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bunny-share-row">
+            <button class="bunny-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+            <button class="bunny-btn-share" id="shareXBtn">𝕏 Share on X</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleIn = document.getElementById('titleIn');
+            const counter = document.getElementById('counter');
+            const ytDeskText = document.getElementById('ytDeskText');
+            const ytMobText = document.getElementById('ytMobText');
+            const igText = document.getElementById('igText');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const shareXBtn = document.getElementById('shareXBtn');
+
+            function renderPreviews() {
+                const val = titleIn.value || "Type an engaging asset hook...";
+                const len = val.length;
+                
+                counter.innerText = `${len}/50`;
+                if(len > 50) {
+                    counter.classList.add('warn');
+                } else {
+                    counter.classList.remove('warn');
+                }
+
+                ytDeskText.innerText = val;
+                ytMobText.innerText = val;
+                igText.innerText = `@cashcompass  ${val}`;
+            }
+
+            titleIn.addEventListener('input', renderPreviews);
+
+            bookmarkBtn.addEventListener('click', () => {
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark Toolsbunny to your toolbar panel!`);
+            });
+
+            shareXBtn.addEventListener('click', () => {
+                const tweetText = encodeURIComponent("This free Title Previewer tool from Toolsbunny is an absolute lifesaver for YouTube layouts! Check it out:");
+                const shareUrl = encodeURIComponent("https://toolsbunny.com/title-previewer");
+                window.open(`https://twitter.com/intent/tweet?text=${tweetText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
+            });
+
+            renderPreviews();
+        });
+    </script>
+</body>
+</html>

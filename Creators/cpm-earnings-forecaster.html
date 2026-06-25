@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Revenue & CPM Forecast Matrix - Toolsbunny</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 750px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; }
+        .bunny-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .bunny-field { width: 100%; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 12px; font-family: 'JetBrains Mono', monospace; outline: none; }
+        
+        .bunny-results-panel { background-color: #080808; border-radius: 6px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border: 1px solid #2A2A35; margin-top: 12px; }
+        .bunny-metric { display: flex; flex-direction: column; }
+        .bunny-metric-label { font-size: 0.75rem; text-transform: uppercase; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; }
+        .bunny-metric-value { font-size: 2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #00FFC2; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">CPM & Revenue Forecast Engine</h1>
+        <p class="bunny-subtitle">Calculate gross pipeline revenue metrics utilizing programmatic monetization indexing constants.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <div class="bunny-input-row">
+            <div>
+                <label class="bunny-label" for="estViews">Projected Impressions/Views</label>
+                <input type="number" id="estViews" class="bunny-field" value="50000">
+            </div>
+            <div>
+                <label class="bunny-label" for="targetCpm">Target CPM Rate ($)</label>
+                <input type="number" id="targetCpm" class="bunny-field" value="7.50" step="0.50">
+            </div>
+        </div>
+
+        <div class="bunny-results-panel">
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Gross Revenue Yield</span>
+                <span class="bunny-metric-value" id="grossOutput">$375.00</span>
+            </div>
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Net Net Share (55%)</span>
+                <span class="bunny-metric-value" id="netOutput" style="color: #FFFFFF;">$206.25</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const estViews = document.getElementById('estViews');
+            const targetCpm = document.getElementById('targetCpm');
+            const grossOutput = document.getElementById('grossOutput');
+            const netOutput = document.getElementById('netOutput');
+
+            function runForecast() {
+                const views = parseFloat(estViews.value) || 0;
+                const cpm = parseFloat(targetCpm.value) || 0;
+
+                const gross = (views / 1000) * cpm;
+                const net = gross * 0.55;
+
+                grossOutput.innerText = `$${gross.toFixed(2)}`;
+                netOutput.innerText = `$${net.toFixed(2)}`;
+            }
+
+            estViews.addEventListener('input', runForecast);
+            targetCpm.addEventListener('input', runForecast);
+            runForecast();
+        });
+    </script>
+</body>
+</html>

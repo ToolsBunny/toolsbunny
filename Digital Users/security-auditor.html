@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Client-Side Hash & Password Complexity Auditor | ToolsBunny</title>
+  <meta name="description" content="Generate SHA-256 signatures, evaluate cryptographic string matrices, and audit enterprise password complexity configurations entirely in local RAM.">
+  <meta property="og:title" content="Browser Client-Side Hash & Password Complexity Auditor | ToolsBunny">
+  <meta property="og:description" content="Secure local system string audit terminal. Run cryptographic hashing with no network telemetry footprint.">
+  <meta property="og:url" content="https://toolsbunny.com/security-auditor">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-security-auditor.png">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tb-vault-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .tb-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .tb-btn-share { background: none; border: none; color: #A1A1AA; font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.2s ease; text-transform: uppercase; tracking: 0.05em; }
+    .tb-btn-share:hover { color: #FFFFFF; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl tb-vault-card p-6">
+    <div class="flex items-center justify-between border-b border-[#2A2A35] pb-4">
+      <div>
+        <h1 class="text-xl tracking-tight text-white uppercase">🔒 CRYPTO_HASH_AUDITOR</h1>
+        <p class="text-xs text-gray-500 mt-1">Compute isolated validation signatures completely decoupled from external cloud telemetry.</p>
+      </div>
+    </div>
+
+    <div id="bunny-ad-slot">
+      <span class="text-[10px] text-gray-600 uppercase tracking-widest">Advertisement Space</span>
+    </div>
+
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Secret Payload Variable Input Stream</label>
+        <input type="password" id="cryptoPayload" value="OperationalStringInput2026!" class="w-full bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-white focus:outline-none focus:border-[#635BFF] font-mono tracking-widest">
+      </div>
+
+      <button id="runAuditorBtn" class="w-full bg-[#635BFF] hover:bg-[#635BFF]/90 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-[6px] transition-all cursor-pointer">Execute Cryptographic Computation</button>
+
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Calculated SHA-256 Digest Signature</label>
+        <textarea id="digestSignatureResult" readonly placeholder="Hexadecimal string signature array view block..." class="w-full h-20 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-[#00FFC2] focus:outline-none resize-none font-mono tracking-widest"></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-[#080808] border border-[#2A2A35] p-3 rounded-[6px]">
+      <span class="text-[10px] text-gray-500 uppercase" id="entropyLevel">Entropy State: Static Matrix</span>
+      <button id="copySignatureBtn" class="text-xs font-bold uppercase bg-[#00FFC2] hover:bg-[#00FFC2]/90 text-black px-4 py-2 rounded-[6px] transition-all cursor-pointer">Copy Signature</button>
+    </div>
+
+    <div class="tb-share-row">
+      <button class="tb-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="tb-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cryptoPayload = document.getElementById('cryptoPayload');
+      const runAuditorBtn = document.getElementById('runAuditorBtn');
+      const digestSignatureResult = document.getElementById('digestSignatureResult');
+      const entropyLevel = document.getElementById('entropyLevel');
+      const copySignatureBtn = document.getElementById('copySignatureBtn');
+      const bookmarkBtn = document.getElementById('bookmarkBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+
+      // Async browser crypto mapping array pipeline execution
+      async function computeSha256(text) {
+        const textBuffer = new TextEncoder().encode(text);
+        const digestBuffer = await crypto.subtle.digest('SHA-256', textBuffer);
+        const uint8Array = Array.from(new Uint8Array(digestBuffer));
+        return uint8Array.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      runAuditorBtn.addEventListener('click', async () => {
+        const secretVal = cryptoPayload.value;
+        if(!secretVal) return;
+
+        const digest = await computeSha256(secretVal);
+        digestSignatureResult.value = digest;
+
+        // Entropy verification mechanics mapping logic loop metrics
+        let calculationWeight = 0;
+        if(/[A-Z]/.test(secretVal)) calculationWeight++;
+        if(/[0-9]/.test(secretVal)) calculationWeight++;
+        if(/[^A-Za-z0-9]/.test(secretVal)) calculationWeight++;
+
+        if(secretVal.length >= 12 && calculationWeight >= 3) {
+          entropyLevel.textContent = "COMPLEXITY AUDIT: STRONG MATRIX DETECTED (HIGH ENTROPY)";
+          entropyLevel.className = "text-[10px] font-bold uppercase text-[#00FFC2]";
+        } else {
+          entropyLevel.textContent = "COMPLEXITY AUDIT: CRITICAL VULNERABILITY FLAG / LOW STRUCTURAL ENTROPY";
+          entropyLevel.className = "text-[10px] font-bold uppercase text-red-500";
+        }
+      });
+
+      copySignatureBtn.addEventListener('click', () => {
+        if(!digestSignatureResult.value) return;
+        navigator.clipboard.writeText(digestSignatureResult.value);
+        const originalText = copySignatureBtn.textContent;
+        copySignatureBtn.textContent = "DIGEST LINKED TO MEMORY";
+        setTimeout(() => copySignatureBtn.textContent = originalText, 1500);
+      });
+
+      bookmarkBtn.addEventListener('click', () => {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark ToolsBunny to your toolbar panel!`);
+      });
+
+      shareXBtn.addEventListener('click', () => {
+        const text = encodeURIComponent("Stop typing administrative password strings into public cloud endpoints. Compute local SHA-256 footprints inside your sandbox memory workspace.");
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

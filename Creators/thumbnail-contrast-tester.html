@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thumbnail Contrast & Blur Tester - Free Creator Simulator</title>
+    <meta name="description" content="Test your video thumbnails with grayscale contrast mapping, blur hierarchy checks, and a mobile feed scale view to ensure your art converts viewers.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 850px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-upload-zone { border: 1px dashed #635BFF; border-radius: 6px; padding: 40px; text-align: center; cursor: pointer; background-color: #080808; margin-bottom: 24px; transition: border-color 0.2s; }
+        .bunny-upload-zone:hover { border-color: #00FFC2; }
+        .bunny-upload-zone p { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #635BFF; font-size: 1rem; }
+        #fileIn { display: none; }
+        
+        .bunny-preview-grid { display: grid; grid-template-columns: 1fr; gap: 20px; display: none; }
+        @media(min-width: 650px) { .bunny-preview-grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        .bunny-preview-box { background: #080808; border-radius: 6px; padding: 12px; border: 1px solid #2A2A35; text-align: center; display: flex; flex-direction: column; }
+        .bunny-preview-box label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: #8E8E9F; margin-bottom: 10px; text-transform: uppercase; }
+        
+        .bunny-img-wrap { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; background: #16161A; border: 1px solid #2A2A35; margin: auto 0; }
+        .bunny-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .bunny-blur-variant { filter: blur(4px); }
+        .bunny-mono-variant { filter: grayscale(100%); }
+        .bunny-scale-variant img { width: 15%; height: auto; object-fit: contain; }
+        
+        .bunny-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a35; }
+        .bunny-btn-share { background: none; border: none; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+        .bunny-btn-share:hover { color: #FFFFFF; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Thumbnail Contrast Optimizer</h1>
+        <p class="bunny-subtitle">Run rapid downsampling diagnostics to ensure high visual performance inside highly competitive feeds.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <div class="bunny-upload-zone" id="dropZone">
+            <p>Click or Drop Production Layout Here</p>
+            <span style="font-size: 0.8rem; color: #8E8E9F; margin-top: 6px; display: inline-block;">Accepts PNG, JPG, WebP image matrix arrays</span>
+            <input type="file" id="fileIn" accept="image/*">
+        </div>
+
+        <div class="bunny-preview-grid" id="previewGrid">
+            <div class="bunny-preview-box">
+                <label>The Blur Hierarchy Test</label>
+                <div class="bunny-img-wrap"><img id="imgBlur" class="bunny-blur-variant" alt="Blurred View Variant"></div>
+            </div>
+            <div class="bunny-preview-box">
+                <label>Value Contrast Spectrum</label>
+                <div class="bunny-img-wrap"><img id="imgMono" class="bunny-mono-variant" alt="Monochrome View Variant"></div>
+            </div>
+            <div class="bunny-preview-box">
+                <label>15% Scale Feed Footprint</label>
+                <div class="bunny-img-wrap bunny-scale-variant"><img id="imgScale" alt="Scaled Feed Footprint Variant"></div>
+            </div>
+        </div>
+
+        <div class="bunny-share-row">
+            <button class="bunny-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+            <button class="bunny-btn-share" id="shareXBtn">𝕏 Share on X</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileIn = document.getElementById('fileIn');
+            const previewGrid = document.getElementById('previewGrid');
+            const imgBlur = document.getElementById('imgBlur');
+            const imgMono = document.getElementById('imgMono');
+            const imgScale = document.getElementById('imgScale');
+            const dropZone = document.getElementById('dropZone');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const shareXBtn = document.getElementById('shareXBtn');
+
+            dropZone.addEventListener('click', () => fileIn.click());
+            
+            fileIn.addEventListener('change', (e) => { 
+                if(e.target.files.length) processImage(e.target.files[0]); 
+            });
+            
+            dropZone.addEventListener('dragover', (e) => { 
+                e.preventDefault(); 
+                dropZone.style.borderColor = "#00FFC2"; 
+            });
+            
+            dropZone.addEventListener('dragleave', () => { 
+                dropZone.style.borderColor = "#635BFF"; 
+            });
+            
+            dropZone.addEventListener('drop', (e) => { 
+                e.preventDefault(); 
+                dropZone.style.borderColor = "#635BFF"; 
+                if(e.dataTransfer.files.length) processImage(e.dataTransfer.files[0]); 
+            });
+
+            function processImage(file) {
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const u = e.target.result;
+                        imgBlur.src = u;
+                        imgMono.src = u;
+                        imgScale.src = u;
+                        previewGrid.style.display = 'grid';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            bookmarkBtn.addEventListener('click', () => {
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark Toolsbunny to your toolbar panel!`);
+            });
+
+            shareXBtn.addEventListener('click', () => {
+                const tweetText = encodeURIComponent("Always ensure your thumbnails pop before uploading! Used this client-side squint test simulator from Toolsbunny:");
+                const shareUrl = encodeURIComponent("https://toolsbunny.com/thumbnail-tester");
+                window.open(`https://twitter.com/intent/tweet?text=${tweetText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
+            });
+        });
+    </script>
+</body>
+</html>
