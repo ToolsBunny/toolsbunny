@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online CSV/JSON Raw Data Cleaner & Visual Mapper | ToolsBunny</title>
+  <meta name="description" content="Sanitize broken data arrays, handle corrupt schemas, clean null variables, and normalize Shopify/Salesforce records entirely in-browser.">
+  <meta property="og:title" content="Online CSV/JSON Raw Data Cleaner & Visual Mapper | ToolsBunny">
+  <meta property="og:description" content="Fix malformed data logs and maps directly inside local browser storage chains. Secure processing engine.">
+  <meta property="og:url" content="https://toolsbunny.com/data-cleaner">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-data-cleaner.png">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tb-vault-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .tb-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .tb-btn-share { background: none; border: none; color: #A1A1AA; font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.2s ease; text-transform: uppercase; tracking: 0.05em; }
+    .tb-btn-share:hover { color: #FFFFFF; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl tb-vault-card p-6">
+    <div class="flex items-center justify-between border-b border-[#2A2A35] pb-4">
+      <div>
+        <h1 class="text-xl tracking-tight text-white uppercase">📊 DATA_CLEANER_MAPPER</h1>
+        <p class="text-xs text-gray-500 mt-1">Purge malformed anomalies, sanitize formatting variables, and standard-map structural inputs.</p>
+      </div>
+    </div>
+
+    <div id="bunny-ad-slot">
+      <span class="text-[10px] text-gray-600 uppercase tracking-widest">Advertisement Space</span>
+    </div>
+
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Raw Data Array Element Input</label>
+        <textarea id="rawDataIn" placeholder="Paste unformatted or broken raw JSON objects/CSV records here..." class="w-full h-36 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-white focus:outline-none focus:border-[#635BFF] resize-none font-mono"></textarea>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <label class="flex items-center space-x-2"><input type="checkbox" id="stripNulls" checked class="accent-[#635BFF]"> <span>Drop Empty Null Values</span></label>
+        <label class="flex items-center space-x-2"><input type="checkbox" id="normalizeDates" checked class="accent-[#635BFF]"> <span>Normalize Timestamps</span></label>
+      </div>
+
+      <button id="processDataBtn" class="w-full bg-[#635BFF] hover:bg-[#635BFF]/90 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-[6px] transition-all cursor-pointer">Execute Schema Scrub</button>
+
+      <div>
+        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5">Normalized Sanitized Output Map</label>
+        <textarea id="cleanDataOut" readonly placeholder="Normalized telemetry visualization stream matrix..." class="w-full h-36 bg-[#080808] border border-[#2A2A35] rounded-[6px] p-3 text-xs text-[#00FFC2] focus:outline-none resize-none font-mono"></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-[#080808] border border-[#2A2A35] p-3 rounded-[6px]">
+      <span class="text-[10px] text-gray-500 uppercase" id="engineStatus">Data Processing Matrix: Isolated</span>
+      <button id="downloadCleanBtn" class="text-xs font-bold uppercase bg-[#00FFC2] hover:bg-[#00FFC2]/90 text-black px-4 py-2 rounded-[6px] transition-all cursor-pointer">Export Matrix File</button>
+    </div>
+
+    <div class="tb-share-row">
+      <button class="tb-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="tb-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rawDataIn = document.getElementById('rawDataIn');
+      const stripNulls = document.getElementById('stripNulls');
+      const normalizeDates = document.getElementById('normalizeDates');
+      const processDataBtn = document.getElementById('processDataBtn');
+      const cleanDataOut = document.getElementById('cleanDataOut');
+      const engineStatus = document.getElementById('engineStatus');
+      const downloadCleanBtn = document.getElementById('downloadCleanBtn');
+      const bookmarkBtn = document.getElementById('bookmarkBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+
+      processDataBtn.addEventListener('click', () => {
+        const rawContent = rawDataIn.value.trim();
+        if(!rawContent) return;
+
+        try {
+          if (rawContent.startsWith('{') || rawContent.startsWith('[')) {
+            // Processing JSON Array Input
+            let parsedObj = JSON.parse(rawContent);
+            
+            const cleanWalk = (node) => {
+              if (Array.isArray(node)) {
+                return node.map(cleanWalk).filter(v => v !== null || !stripNulls.checked);
+              } else if (node !== null && typeof node === 'object') {
+                return Object.entries(node).reduce((acc, [k, v]) => {
+                  if (stripNulls.checked && (v === null || v === undefined || v === '')) return acc;
+                  if (normalizeDates.checked && typeof v === 'string' && !isNaN(Date.parse(v)) && v.includes('-')) {
+                    acc[k] = new Date(v).toISOString();
+                  } else {
+                    acc[k] = cleanWalk(v);
+                  }
+                  return acc;
+                }, {});
+              }
+              return node;
+            };
+
+            const finalizedObj = cleanWalk(parsedObj);
+            cleanDataOut.value = JSON.stringify(finalizedObj, null, 2);
+            engineStatus.textContent = "ENGINE_STATUS: JSON CONTEXT MAP SANITIZED";
+          } else {
+            // Flat text configuration tracking/CSV processing
+            let structuralRows = rawContent.split('\n');
+            let mappedRows = structuralRows.map(row => {
+              let columns = row.split(',');
+              if (stripNulls.checked) {
+                columns = columns.map(col => col.trim() === '' ? '[N/A]' : col.trim());
+              }
+              return columns.join(',');
+            });
+            cleanDataOut.value = mappedRows.join('\n');
+            engineStatus.textContent = "ENGINE_STATUS: RAW CSV STRINGS STANDARD ALIGNED";
+          }
+          engineStatus.className = "text-[10px] font-bold uppercase text-[#00FFC2]";
+        } catch(err) {
+          engineStatus.textContent = "PARSING CONTEXT EXCEPTION STRUCTURAL ERROR";
+          engineStatus.className = "text-[10px] font-bold uppercase text-red-500";
+        }
+      });
+
+      downloadCleanBtn.addEventListener('click', () => {
+        const content = cleanDataOut.value;
+        if(!content) return;
+        const blob = new Blob([content], { type: "text/plain" });
+        const downloadElement = document.createElement("a");
+        downloadElement.href = URL.createObjectURL(blob);
+        downloadElement.download = "SANITIZED_DATA_ARRAY.txt";
+        downloadElement.click();
+      });
+
+      bookmarkBtn.addEventListener('click', () => {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark ToolsBunny to your toolbar panel!`);
+      });
+
+      shareXBtn.addEventListener('click', () => {
+        const text = encodeURIComponent("Sanitize client schemas completely offline. No tracking telemetry or leaks.");
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

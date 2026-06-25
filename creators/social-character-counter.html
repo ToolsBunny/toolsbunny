@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Character Counter - Multi-Platform Distribution Optimizer</title>
+    <meta name="description" content="Count social characters in real-time across YouTube, TikTok, Instagram, and X simultaneously.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 800px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; }
+        .bunny-textarea { width: 100%; height: 160px; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: none; outline: none; margin-bottom: 24px; transition: border-color 0.2s; }
+        .bunny-textarea:focus { border-color: #635BFF; }
+        
+        .bunny-bar-container { margin-bottom: 18px; }
+        .bunny-bar-meta { display: flex; justify-content: space-between; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; }
+        .bunny-bar-track { width: 100%; height: 8px; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; overflow: hidden; }
+        .bunny-bar-fill { width: 0%; height: 100%; background-color: #635BFF; transition: width 0.1s, background-color 0.2s; }
+        .bunny-bar-fill.alert { background-color: #FF3B30; }
+        
+        .bunny-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2a2a35; }
+        .bunny-btn-share { background: none; border: none; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+        .bunny-btn-share:hover { color: #FFFFFF; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Distribution Engine Array</h1>
+        <p class="bunny-subtitle">Simultaneously parse metadata block lengths down across multiple platform networks.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <label class="bunny-label" for="metaInput">Master Post Content Block</label>
+        <textarea id="metaInput" class="bunny-textarea" placeholder="Type or drop campaign descriptive copy assets..."></textarea>
+        
+        <div id="networks">
+            <div class="bunny-bar-container" data-limit="5000">
+                <div class="bunny-bar-meta"><span>YouTube Meta String</span><span class="count-val">0 / 5000</span></div>
+                <div class="bunny-bar-track"><div class="bunny-bar-fill"></div></div>
+            </div>
+            <div class="bunny-bar-container" data-limit="4000">
+                <div class="bunny-bar-meta"><span>TikTok Captions</span><span class="count-val">0 / 4000</span></div>
+                <div class="bunny-bar-track"><div class="bunny-bar-fill"></div></div>
+            </div>
+            <div class="bunny-bar-container" data-limit="2200">
+                <div class="bunny-bar-meta"><span>Instagram Frame Text</span><span class="count-val">0 / 2200</span></div>
+                <div class="bunny-bar-track"><div class="bunny-bar-fill"></div></div>
+            </div>
+            <div class="bunny-bar-container" data-limit="280">
+                <div class="bunny-bar-meta"><span>X Pipeline System</span><span class="count-val">0 / 280</span></div>
+                <div class="bunny-bar-track"><div class="bunny-bar-fill"></div></div>
+            </div>
+        </div>
+
+        <div class="bunny-share-row">
+            <button class="bunny-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+            <button class="bunny-btn-share" id="shareXBtn">𝕏 Share on X</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const metaInput = document.getElementById('metaInput');
+            const containers = document.querySelectorAll('.bunny-bar-container');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const shareXBtn = document.getElementById('shareXBtn');
+
+            metaInput.addEventListener('input', () => {
+                const count = metaInput.value.length;
+
+                containers.forEach(box => {
+                    const limit = parseInt(box.getAttribute('data-limit'));
+                    const display = box.querySelector('.count-val');
+                    const fill = box.querySelector('.bunny-bar-fill');
+
+                    display.innerText = `${count} / ${limit}`;
+                    let pct = Math.min((count / limit) * 100, 100);
+                    fill.style.width = `${pct}%`;
+
+                    if(count > limit) {
+                        fill.classList.add('alert');
+                        display.style.color = '#FF3B30';
+                    } else {
+                        fill.classList.remove('alert');
+                        display.style.color = '';
+                    }
+                });
+            });
+
+            bookmarkBtn.addEventListener('click', () => {
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark Toolsbunny to your toolbar panel!`);
+            });
+
+            shareXBtn.addEventListener('click', () => {
+                const tweetText = encodeURIComponent("Managing cross-platform post copy is so easy with this tracking array. Check out Toolsbunny:");
+                const shareUrl = encodeURIComponent("https://toolsbunny.com/character-counter");
+                window.open(`https://twitter.com/intent/tweet?text=${tweetText}&url=${shareUrl}`, '_blank', 'noopener,noreferrer');
+            });
+        });
+    </script>
+</body>
+</html>

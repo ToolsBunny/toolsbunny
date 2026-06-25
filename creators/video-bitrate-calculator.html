@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Storage File Size & Bitrate Calculator - Toolsbunny</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; color: #F7F1E3; font-family: 'JetBrains Mono', monospace; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .bunny-card { background-color: #16161A; border-radius: 6px; padding: 32px; width: 100%; max-width: 700px; border: 1px solid #2A2A35; }
+        .bunny-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; color: #FFFFFF; }
+        .bunny-subtitle { color: #8E8E9F; font-size: 0.9rem; margin-bottom: 24px; }
+        
+        #bunny-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #635BFF; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 1px; width: 100%; height: 100px; }
+        
+        .bunny-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #635BFF; text-transform: uppercase; }
+        .bunny-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .bunny-field { width: 100%; background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #F7F1E3; padding: 12px; font-family: 'JetBrains Mono', monospace; outline: none; }
+        
+        .bunny-results-panel { background-color: #080808; border-radius: 6px; padding: 20px; display: grid; grid-template-columns: 1fr; gap: 16px; border: 1px solid #2A2A35; margin-top: 12px; }
+        @media(min-width: 500px) { .bunny-results-panel { grid-template-columns: 1fr 1fr; } }
+        .bunny-metric { display: flex; flex-direction: column; }
+        .bunny-metric-label { font-size: 0.75rem; text-transform: uppercase; color: #8E8E9F; font-family: 'Space Grotesk', sans-serif; }
+        .bunny-metric-value { font-size: 2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #00FFC2; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="bunny-card">
+        <h1 class="bunny-title">Bitrate & File Size Calculator</h1>
+        <p class="bunny-subtitle">Compute pipeline storage targets using systematic raw byte analytics.</p>
+        
+        <div id="bunny-ad-slot">■ SPONSORSHIP DATA PLACEMENT COMPONENT</div>
+
+        <div class="bunny-input-row">
+            <div>
+                <label class="bunny-label" for="durationSec">Video Length (Seconds)</label>
+                <input type="number" id="durationSec" class="bunny-field" value="60">
+            </div>
+            <div>
+                <label class="bunny-label" for="targetBitrate">Video Bitrate (Mbps)</label>
+                <input type="number" id="targetBitrate" class="bunny-field" value="12">
+            </div>
+        </div>
+
+        <div class="bunny-results-panel">
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Estimated File Size</span>
+                <span class="bunny-metric-value" id="sizeOutput">90.00 MB</span>
+            </div>
+            <div class="bunny-metric">
+                <span class="bunny-metric-label">Per-Minute Footprint</span>
+                <span class="bunny-metric-value" id="perMinOutput" style="color: #FFFFFF;">90.0 MB</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const durationSec = document.getElementById('durationSec');
+            const targetBitrate = document.getElementById('targetBitrate');
+            const sizeOutput = document.getElementById('sizeOutput');
+            const perMinOutput = document.getElementById('perMinOutput');
+
+            function calcSpace() {
+                const dur = parseFloat(durationSec.value) || 0;
+                const bit = parseFloat(targetBitrate.value) || 0;
+
+                const totalMB = (bit * dur) / 8;
+                sizeOutput.innerText = totalMB >= 1024 
+                    ? `${(totalMB / 1024).toFixed(2)} GB` 
+                    : `${totalMB.toFixed(2)} MB`;
+
+                const singleMinMB = (bit * 60) / 8;
+                perMinOutput.innerText = singleMinMB >= 1024
+                    ? `${(singleMinMB / 1024).toFixed(2)} GB`
+                    : `${singleMinMB.toFixed(1)} MB`;
+            }
+
+            durationSec.addEventListener('input', calcSpace);
+            targetBitrate.addEventListener('input', calcSpace);
+            calcSpace();
+        });
+    </script>
+</body>
+</html>
